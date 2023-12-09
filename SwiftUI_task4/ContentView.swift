@@ -53,14 +53,14 @@ struct ContentView: View {
             }
         }
         .disabled(isDisabled)
-        .buttonStyle(PressableButtonStyle(animtaionLength: $duration))
+        .buttonStyle(PressableButtonStyle(duration: $duration))
 
     }
 }
 
 struct PressableButtonStyle: ButtonStyle {
     @State private var isAnimating: Bool = false
-    @Binding var animtaionLength: Double
+    @Binding var duration: Double
 
     func makeBody(configuration: Configuration) -> some View {
         ZStack {
@@ -69,16 +69,16 @@ struct PressableButtonStyle: ButtonStyle {
                 .scaleEffect(isAnimating ? 1 : 0.86)
                 .opacity(isAnimating ? 1 : 0)
                 .frame(width: 65, height: 65)
-                .animation(.easeOut(duration: animtaionLength), value: isAnimating)
+                .animation(.easeOut(duration: duration), value: isAnimating)
 
             configuration.label
                 .scaleEffect(isAnimating ? 0.86 : 1.0)
-                .animation(.easeOut(duration: animtaionLength), value: isAnimating)
+                .animation(.easeOut(duration: duration), value: isAnimating)
                 .onChange(of: configuration.isPressed) { oldValue, newValue in
                     if oldValue {
                         isAnimating = true
                     } else {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + animtaionLength) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
                             isAnimating = false
                         }
                     }
