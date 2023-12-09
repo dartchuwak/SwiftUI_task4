@@ -25,7 +25,6 @@ struct ContentView: View {
                 self.opacity1 = 1
             }
 
-
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.scale = 0.0
                 self.scale2 = 1.0
@@ -59,14 +58,6 @@ struct ContentView: View {
     }
 }
 
-struct NoTapAnimationStyle: PrimitiveButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .contentShape(Rectangle())
-            .onTapGesture(perform: configuration.trigger)
-    }
-}
-
 struct PressableButtonStyle: ButtonStyle {
     @State private var isAnimating: Bool = false
     @Binding var animtaionLength: Double
@@ -95,8 +86,6 @@ struct PressableButtonStyle: ButtonStyle {
         }
     }
 }
-
-
 
 #Preview {
     ContentView()
